@@ -37,7 +37,7 @@ class ExpenseController extends Controller
     {
         abort_if(Gate::denies('expense_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $expense_categories = ExpenseCategory::where('created_by_id', Auth::id())->get();
+        $expense_categories = ExpenseCategory::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');;
 
         return view('admin.expenses.create', compact('expense_categories'));
     }
@@ -55,7 +55,7 @@ class ExpenseController extends Controller
 
         $expense = Expense::findOrFail($id);
 
-        $expense_categories = ExpenseCategory::where('created_by_id', Auth::id())->get();
+        $expense_categories = ExpenseCategory::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $expense->load('expense_category', 'created_by');
 
