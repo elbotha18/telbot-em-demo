@@ -1,0 +1,15 @@
+entry_date,description,type,category,amount
+2023-04-07,"SUSO Description",Income,SUSO,0.99
+2023-04-07,"Adhoc Description",Income,Adhoc,1.99
+2023-04-07,"Pet Lodge Description",Income,"Pet Lodge",2.99
+2023-04-07,"Bills Description",Expense,Bills,-0.99
+2023-04-07,"Drinks Description",Expense,Drinks,-1.99
+2023-04-07,"Entertainment Description",Expense,Entertainment,-2.99
+2023-04-07,"Food Description",Expense,Food,-3.99
+2023-04-07,"Fuel Description",Expense,Fuel,-4.99
+2023-04-07,"Gifts Description",Expense,Gifts,-5.99
+2023-04-07,"Medical Description",Expense,Medical,-6.99
+2023-04-07,"Pet Description",Expense,Pet,-7.99
+2023-04-07,"Other Description",Expense,Other,-8.99
+2023-04-07,"Taxes Description",Expense,Taxes,-9.99
+2023-04-07,"Mobile & Internet Description",Expense,"Mobile & Internet",-10.99
