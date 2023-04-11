@@ -6,6 +6,6 @@ deployment:
     - $GIT_BIN --git-dir=$DEPLOYPATH/.git --work-tree=$DEPLOYPATH checkout -f
     - cd $DEPLOYPATH
     - $PHP_BIN artisan optimize
-    - $PHP_BIN composer install --no-dev
-    - $PHP_BIN composer dump-autoload --no-dev --optimize
+    - $COMPOSER_BIN install --no-dev
+    - $COMPOSER_BIN dump-autoload --no-dev --optimize
 
