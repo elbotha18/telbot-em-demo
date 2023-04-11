@@ -2,9 +2,10 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home1/telbot/em.telbot.cc
-    - /usr/local/cpanel/3rdparty/bin/git clone --depth 1 --branch master https://github.com/elbotha18/telbot-em.git $DEPLOYPATH
-    - /usr/local/cpanel/3rdparty/bin/git --git-dir=$DEPLOYPATH/.git --work-tree=$DEPLOYPATH checkout -f
+    - $GIT_BIN clone --depth 1 --branch master https://github.com/elbotha18/telbot-em.git $DEPLOYPATH
+    - $GIT_BIN --git-dir=$DEPLOYPATH/.git --work-tree=$DEPLOYPATH checkout -f
     - cd $DEPLOYPATH
-    - /opt/cpanel/ea-php74/root/usr/bin/php artisan optimize
-    - /opt/cpanel/ea-php74/root/usr/bin/composer install --no-dev
-    - /opt/cpanel/ea-php74/root/usr/bin/composer dump-autoload --no-dev --optimize
+    - $PHP_BIN artisan optimize
+    - $PHP_BIN composer install --no-dev
+    - $PHP_BIN composer dump-autoload --no-dev --optimize
+
