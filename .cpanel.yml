@@ -1,7 +1,7 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=//home1/telbot/em.telbot.cc
+    - export DEPLOYPATH=/home1/telbot/em.telbot.cc
     - /usr/local/cpanel/3rdparty/bin/git clone --depth 1 --branch master https://github.com/elbotha18/telbot-em.git $DEPLOYPATH
     - /usr/local/cpanel/3rdparty/bin/git --git-dir=$DEPLOYPATH/.git --work-tree=$DEPLOYPATH checkout -f
     - cd $DEPLOYPATH
