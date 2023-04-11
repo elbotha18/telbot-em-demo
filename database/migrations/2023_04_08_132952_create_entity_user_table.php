@@ -12,8 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('entity_user', function (Blueprint $table) {
-            $table->foreignId('entity_id')->constrained()->onDelete('cascade');
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedInteger('entity_id');
+
+            $table->foreign('entity_id', 'entity_id_fk_334959')->references('id')->on('entities')->onDelete('cascade');
+
+            $table->unsignedInteger('user_id');
+
+            $table->foreign('user_id', 'user_id_fk_334959')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
