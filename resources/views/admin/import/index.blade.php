@@ -46,7 +46,7 @@
 $(document).ready(function() {
     $('#download-template').click(function() {
         $.ajax({
-        url: '/admin/import/template',
+        url: '{{ route("admin.import.template") }}',
         type: 'GET',
         success: function(data) {
             // On success, create a new blob and download the file
@@ -86,7 +86,7 @@ $(document).ready(function() {
 
     // Make the AJAX request
     $.ajax({
-      url: '/admin/import/upload',
+        url: '{{ route("admin.import.upload") }}',
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
@@ -260,7 +260,7 @@ importButton.addEventListener('click', function() {
   }
   // Send the data to the API using an AJAX request
     $.ajax({
-        url: '/admin/import/submit',
+        url: '{{ route("admin.store.import") }}',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
