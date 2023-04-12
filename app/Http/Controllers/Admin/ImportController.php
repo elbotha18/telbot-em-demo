@@ -90,46 +90,22 @@ class ImportController extends Controller
         $expense_categories = ExpenseCategory::where('created_by_id', $user->id)->get(['id', 'name']);
 
         $file = $request->file('file');
-        $filename = $file->getClientOriginalName();
         $extension = $file->getClientOriginalExtension();
-        $tempPath = $file->getRealPath();
-        $fileSize = $file->getSize();
-        $mimeType = $file->getMimeType();
 
         $valid_extension = array('csv', 'xlsx', 'xls');
         $data = array();
 
         if(in_array(strtolower($extension),$valid_extension))
         {
-            $location = 'uploads';
-            $now = date('Y-m-d H:i:s');
+            $csvData = file_get_contents($file->path());
 
-            $file->move($location,$filename);
+            $rows = explode("\n", $csvData);
 
-            $filepath = public_path($location."/".$filename);
+            $importData_arr = [];
 
-            $file = fopen($filepath,"r");
-
-            $importData_arr = array();
-            $i = 0;
-
-            while (($filedata = fgetcsv($file, 1000, ",")) !== FALSE)
-            {
-                $num = count($filedata);
-
-                if($i == 0)
-                {
-                    $i++;
-                    continue;
-                }
-
-                for ($c=0; $c < $num; $c++)
-                {
-                    $importData_arr[$i][] = $filedata [$c];
-                }
-                $i++;
+            foreach ($rows as $row) {
+                $importData_arr[] = str_getcsv($row);
             }
-            fclose($file);
             // remove header line
             array_shift($importData_arr);
 
@@ -138,7 +114,7 @@ class ImportController extends Controller
                 $type = $this->getType($importData_arr[$i][2], $importData_arr[$i][1]);
                 $data[$i] = array(
                     'Date' => $importData_arr[$i][0],
-                    'Amount' => $importData_arr[$i][4],
+                    'Amount' => $this->getAmount($importData_arr[$i][4]),
                     'Description' => $importData_arr[$i][1],
                     'Type' => $type,
                     'Category' => $this->getCategory($importData_arr[$i][3], $type->id, $income_categories, $expense_categories)
@@ -172,6 +148,15 @@ class ImportController extends Controller
         {
             return (object) ['id' => 1, 'name' => 'Expense'];
         }
+    }
+
+    private function getAmount($amount)
+    {
+        if ($amount < 0)
+        {
+            return $amount * -1;
+        }
+        return $amount;
     }
 
     private function getCategory($category, $type, $income_categories, $expense_categories)
