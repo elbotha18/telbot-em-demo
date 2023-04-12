@@ -1,6 +1,8 @@
 <?php
 
-Route::redirect('/', '/login');
+Route::get('/', function () {
+    return redirect('/login');
+});
 Route::redirect('/home', '/admin');
 Auth::routes();
 
