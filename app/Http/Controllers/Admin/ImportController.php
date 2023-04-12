@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Auth;
 use Gate;
+use App\Income;
+use App\Expense;
 use App\ExpenseCategory;
 use App\IncomeCategory;
 use Illuminate\Http\Request;
