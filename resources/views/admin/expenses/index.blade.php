@@ -75,29 +75,17 @@
                                 @endcan
 
                                 @can('expense_edit')
-                                    @if ($expense->created_by_id == Auth::user()->id)
-                                        <a class="btn btn-xs btn-info" href="{{ route('admin.expenses.edit', $expense->id) }}">
-                                            {{ trans('global.edit') }}
-                                        </a>
-                                    @else 
-                                        <button class="btn btn-xs btn-info" disabled>
-                                            {{ trans('global.edit')}}
-                                        </button>
-                                    @endif
+                                    <a class="btn btn-xs btn-info" href="{{ route('admin.expenses.edit', $expense->id) }}">
+                                        {{ trans('global.edit') }}
+                                    </a>
                                 @endcan
 
                                 @can('expense_delete')
-                                    @if ($expense->created_by_id == Auth::user()->id)
-                                        <form action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
-                                            <input type="hidden" name="_method" value="DELETE">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                            <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
-                                        </form>
-                                    @else 
-                                        <button class="btn btn-xs btn-danger" disabled>
-                                            {{ trans('global.delete')}}
-                                        </button>
-                                    @endif
+                                    <form action="{{ route('admin.expenses.destroy', $expense->id) }}" method="POST" onsubmit="return confirm('{{ trans('global.areYouSure') }}');" style="display: inline-block;">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                        <input type="submit" class="btn btn-xs btn-danger" value="{{ trans('global.delete') }}">
+                                    </form>
                                 @endcan
 
                             </td>

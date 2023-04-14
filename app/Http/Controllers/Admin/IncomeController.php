@@ -51,7 +51,7 @@ class IncomeController extends Controller
 
         $income = Income::findOrFail($id);
         
-        $income_categories = IncomeCategory::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $income_categories = IncomeCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $income->load('income_category', 'created_by');
 

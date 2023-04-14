@@ -18,9 +18,14 @@ class ExpenseCategoryController extends Controller
     {
         abort_if(Gate::denies('expense_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $expenseCategories = ExpenseCategory::where('created_by_id', Auth::id())->get();
+        $viewMode = request('view_mode') ?? 'personal';
+        if ($viewMode == 'personal') {
+            $expenseCategories = ExpenseCategory::where('created_by_id', Auth::id())->get();
+        } else {
+            $expenseCategories = ExpenseCategory::all();
+        }
 
-        return view('admin.expenseCategories.index', compact('expenseCategories'));
+        return view('admin.expenseCategories.index', compact('expenseCategories', 'viewMode'));
     }
 
     public function create()

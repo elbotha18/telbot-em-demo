@@ -55,7 +55,7 @@ class ExpenseController extends Controller
 
         $expense = Expense::findOrFail($id);
 
-        $expense_categories = ExpenseCategory::where('created_by_id', Auth::id())->pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
+        $expense_categories = ExpenseCategory::pluck('name', 'id')->prepend(trans('global.pleaseSelect'), '');
 
         $expense->load('expense_category', 'created_by');
 

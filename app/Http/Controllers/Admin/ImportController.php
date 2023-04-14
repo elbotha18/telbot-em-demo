@@ -19,8 +19,8 @@ class ImportController extends Controller
         abort_if(Gate::denies('import_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
         
         $user = Auth::user();
-        $income_categories = IncomeCategory::where('created_by_id', $user->id)->get(['id', 'name']);
-        $expense_categories = ExpenseCategory::where('created_by_id', $user->id)->get(['id', 'name']);
+        $income_categories = IncomeCategory::get(['id', 'name']);
+        $expense_categories = ExpenseCategory::get(['id', 'name']);
 
         return view('admin.import.index', compact('income_categories', 'expense_categories'));
     }
@@ -88,8 +88,8 @@ class ImportController extends Controller
             return redirect()->back()->with('error', 'Please select a file to import');
         }
         $user = Auth::user();
-        $income_categories = IncomeCategory::where('created_by_id', $user->id)->get(['id', 'name']);
-        $expense_categories = ExpenseCategory::where('created_by_id', $user->id)->get(['id', 'name']);
+        $income_categories = IncomeCategory::get(['id', 'name']);
+        $expense_categories = ExpenseCategory::get(['id', 'name']);
 
         $file = $request->file('file');
         $extension = $file->getClientOriginalExtension();

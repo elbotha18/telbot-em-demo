@@ -18,9 +18,14 @@ class IncomeCategoryController extends Controller
     {
         abort_if(Gate::denies('income_category_access'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
-        $incomeCategories = IncomeCategory::where('created_by_id', Auth::id())->get();
+        $viewMode = request('view_mode') ?? 'personal';
+        if ($viewMode == 'personal') {
+            $incomeCategories = IncomeCategory::where('created_by_id', Auth::id())->get();
+        } else {
+            $incomeCategories = IncomeCategory::all();
+        }
 
-        return view('admin.incomeCategories.index', compact('incomeCategories'));
+        return view('admin.incomeCategories.index', compact('incomeCategories', 'viewMode'));
     }
 
     public function create()

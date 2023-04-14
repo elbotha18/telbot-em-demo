@@ -6,6 +6,10 @@
             <a class="btn btn-success" href="{{ route("admin.income-categories.create") }}">
                 {{ trans('global.add') }} {{ trans('cruds.incomeCategory.title_singular') }}
             </a>
+            <div class="btn-group" role="group" aria-label="View mode">
+                <a href="{{ route('admin.income-categories.index', ['view_mode' => 'personal']) }}" class="btn btn-secondary{{ $viewMode == 'personal' ? ' active' : '' }}">Personal</a>
+                <a href="{{ route('admin.income-categories.index', ['view_mode' => 'entity']) }}" class="btn btn-secondary{{ $viewMode == 'entity' ? ' active' : '' }}">Entity</a>
+            </div>
         </div>
     </div>
 @endcan
