@@ -113,14 +113,23 @@ class ImportController extends Controller
 
             for ($i = 0; $i < count($importData_arr); $i++)
             {
-                $type = $this->getType($importData_arr[$i][2], $importData_arr[$i][1]);
-                $data[$i] = array(
-                    'Date' => $importData_arr[$i][0],
-                    'Amount' => $this->getAmount($importData_arr[$i][4]),
-                    'Description' => $importData_arr[$i][1],
-                    'Type' => $type,
-                    'Category' => $this->getCategory($importData_arr[$i][3], $type->id, $income_categories, $expense_categories)
-                );
+                try {
+                    if ($importData_arr[$i][0] === null)
+                    {
+                        continue;
+                    }
+                    $type = $this->getType($importData_arr[$i][2], $importData_arr[$i][1]);
+                    $data[$i] = array(
+                        'Date' => $importData_arr[$i][0],
+                        'Amount' => $this->getAmount($importData_arr[$i][4]),
+                        'Description' => $importData_arr[$i][1],
+                        'Type' => $type,
+                        'Category' => $this->getCategory($importData_arr[$i][3], $type->id, $income_categories, $expense_categories)
+                    );
+                }
+                catch (\Exception $e) {
+                    // Add failover here
+                }
             }
         }
         else
