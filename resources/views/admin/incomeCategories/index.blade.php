@@ -33,7 +33,9 @@
                             {{ trans('cruds.incomeCategory.fields.name') }}
                         </th>
                         <th>
-                            &nbsp;
+                            Include in Report
+                        <th>
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -48,6 +50,9 @@
                             </td>
                             <td>
                                 {{ $incomeCategory->name ?? '' }}
+                            </td>
+                            <td style="display:flex; justify-content: center">
+                                {{ $incomeCategory->include_in_report ? 'Yes' : 'No'}}
                             </td>
                             <td>
                                 @can('income_category_show')

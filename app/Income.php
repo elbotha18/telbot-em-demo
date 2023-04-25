@@ -36,6 +36,11 @@ class Income extends Model
         return $this->belongsTo(IncomeCategory::class, 'income_category_id');
     }
 
+    public function report_income_category()
+    {
+        return $this->belongsTo(IncomeCategory::class, 'income_category_id')->where('include_in_report', 1);
+    }
+
     public function getEntryDateAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;

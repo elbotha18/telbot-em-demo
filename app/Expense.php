@@ -36,6 +36,11 @@ class Expense extends Model
         return $this->belongsTo(ExpenseCategory::class, 'expense_category_id');
     }
 
+    public function report_expense_category()
+    {
+        return $this->belongsTo(ExpenseCategory::class, 'expense_category_id')->where('include_in_report', 1);
+    }
+
     public function getEntryDateAttribute($value)
     {
         return $value ? Carbon::parse($value)->format(config('panel.date_format')) : null;

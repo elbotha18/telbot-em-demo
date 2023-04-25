@@ -20,6 +20,7 @@ class IncomeCategory extends Model
 
     protected $fillable = [
         'name',
+        'include_in_report',
         'created_at',
         'updated_at',
         'deleted_at',

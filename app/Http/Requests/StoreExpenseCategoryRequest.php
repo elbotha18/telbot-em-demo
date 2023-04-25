@@ -22,6 +22,7 @@ class StoreExpenseCategoryRequest extends FormRequest
             'name' => [
                 'required',
             ],
+            'include_in_report' => 'boolean|nullable'
         ];
     }
 }

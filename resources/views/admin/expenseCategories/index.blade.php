@@ -33,7 +33,9 @@
                             {{ trans('cruds.expenseCategory.fields.name') }}
                         </th>
                         <th>
-                            &nbsp;
+                            Include in Report
+                        <th>
+                            Actions
                         </th>
                     </tr>
                 </thead>
@@ -48,6 +50,9 @@
                             </td>
                             <td>
                                 {{ $expenseCategory->name ?? '' }}
+                            </td>
+                            <td style="display:flex; justify-content: center">
+                                {{ $expenseCategory->include_in_report ? 'Yes' : 'No'}}
                             </td>
                             <td>
                                 @can('expense_category_show')

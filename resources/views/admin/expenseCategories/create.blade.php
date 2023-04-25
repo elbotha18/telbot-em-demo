@@ -22,6 +22,11 @@
                     {{ trans('cruds.expenseCategory.fields.name_helper') }}
                 </p>
             </div>
+            <!-- add include in report checkbox -->
+            <div class="form-group display-flex">
+                <label for="include_in_report">Include in Report</label>
+                <input type="checkbox" id="include_in_report" name="include_in_report" class="form-control" value="1">
+            </div>
             <div>
                 <input class="btn btn-danger" type="submit" value="{{ trans('global.save') }}">
             </div>
@@ -31,3 +36,17 @@
     </div>
 </div>
 @endsection
+
+<style>
+    .invalid-feedback {
+        display: block;
+    }
+    .display-flex {
+        display: flex;
+    }
+    #include_in_report {
+        width: 15px;
+        height: 15px;
+        margin: auto 10px;
+    }
+</style>

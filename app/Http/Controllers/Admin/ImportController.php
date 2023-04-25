@@ -110,14 +110,12 @@ class ImportController extends Controller
             }
             // remove header line
             array_shift($importData_arr);
+            $array_count = count($importData_arr);
+            $imported_count = 0;
 
             for ($i = 0; $i < count($importData_arr); $i++)
             {
                 try {
-                    if ($importData_arr[$i][0] === null)
-                    {
-                        continue;
-                    }
                     $type = $this->getType($importData_arr[$i][2], $importData_arr[$i][1]);
                     $data[$i] = array(
                         'Date' => $importData_arr[$i][0],
@@ -126,9 +124,9 @@ class ImportController extends Controller
                         'Type' => $type,
                         'Category' => $this->getCategory($importData_arr[$i][3], $type->id, $income_categories, $expense_categories)
                     );
-                }
-                catch (\Exception $e) {
-                    // Add failover here
+                    $imported_count++;
+                } catch (\Throwable $th) {
+                    // throw $th;
                 }
             }
         }
@@ -137,7 +135,7 @@ class ImportController extends Controller
             return redirect()->back()->with('error', 'Please select a valid file to import');
         }
 
-        return response()->json(['data' => $data], 200);
+        return response()->json(['data' => $data, 'message' => "Successfully imported $imported_count of $array_count"], 200);
     }
 
     private function getType($type, $amount)
@@ -206,6 +204,9 @@ class ImportController extends Controller
         $user = Auth::user();
         $now = date('Y-m-d H:i:s');
 
+        $array_count = count($data);
+        $imported_count = 0;
+
         $expenses = [];
         $incomes = [];
         foreach ($data as $item)
@@ -234,6 +235,7 @@ class ImportController extends Controller
                     'updated_at' => $now
                 ];
             }
+            $imported_count++;
         }
 
         if (count($incomes) > 0)
@@ -246,6 +248,6 @@ class ImportController extends Controller
             Expense::insert($expenses);
         }
     
-        return redirect()->route('admin.expenses.index');
+        return response()->json(['message' => "Successfully imported $imported_count of $array_count"], 200);
     }
 }

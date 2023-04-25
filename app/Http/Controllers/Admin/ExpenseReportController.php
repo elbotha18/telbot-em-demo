@@ -34,21 +34,25 @@ class ExpenseReportController extends Controller
             $to->day = $to->daysInMonth;
         }
 
+        $income_categories = IncomeCategory::where('include_in_report', true)->get();
+        $expense_categories = ExpenseCategory::where('include_in_report', true)->get();
         $viewMode = request('viewMode') ?? 'personal';
         if ($viewMode == 'personal') {
             $expenses = Expense::where('created_by_id', Auth::id())
-                ->with('expense_category')
+                ->whereIn('expense_category_id', $expense_categories->pluck('id'))
+                ->with('report_expense_category')
                 ->whereBetween('entry_date', [$from, $to]);
 
             $incomes = Income::where('created_by_id', Auth::id())
-                ->with('income_category')
+                ->whereIn('income_category_id', $income_categories->pluck('id'))
+                ->with('report_income_category')
                 ->whereBetween('entry_date', [$from, $to]);
         } else {
-            $expenses = Expense::whereBetween('entry_date', [$from, $to]);
-            $expenses->expense_category = ExpenseCategory::all();
+            $expenses = Expense::whereIn('expense_category_id', $expense_categories->pluck('id'))->whereBetween('entry_date', [$from, $to]);
+            $expenses->expense_category = $expense_categories;
             
-            $incomes = Income::whereBetween('entry_date', [$from, $to]);
-            $incomes->income_category = IncomeCategory::all();
+            $incomes = Income::whereIn('income_category_id', $income_categories->pluck('id'))->whereBetween('entry_date', [$from, $to]);
+            $incomes->income_category = $income_categories;
         }
 
         $expensesTotal   = $expenses->sum('amount');

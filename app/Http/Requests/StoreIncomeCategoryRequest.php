@@ -22,6 +22,7 @@ class StoreIncomeCategoryRequest extends FormRequest
             'name' => [
                 'required',
             ],
+            'include_in_report' => 'boolean|nullable'
         ];
     }
 }
