@@ -26,6 +26,14 @@
                             {{ $incomeCategory->name }}
                         </td>
                     </tr>
+                    <tr>
+                        <th>
+                            Include in Report
+                        </th>
+                        <td>
+                            {{ $incomeCategory->include_in_report ? 'Yes' : 'No'}}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
             <a style="margin-top:20px;" class="btn btn-default" href="{{ url()->previous() }}">

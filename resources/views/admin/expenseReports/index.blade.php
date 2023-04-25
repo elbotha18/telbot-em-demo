@@ -248,10 +248,12 @@
                 var selectedSummary = Object.values(expensesSummary).find(function(summary) {
                     return summary.id === categoryId;
                 });
-                categories[categoryId] = {
-                    id: categoryId,
-                    name: selectedSummary.name,
-                };
+                if (selectedSummary !== undefined) {
+                    categories[categoryId] = {
+                        id: categoryId,
+                        name: selectedSummary.name,
+                    };
+                }
             }
         }
         categories.shift();

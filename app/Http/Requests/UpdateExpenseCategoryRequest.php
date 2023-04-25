@@ -16,12 +16,20 @@ class UpdateExpenseCategoryRequest extends FormRequest
         return true;
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'include_in_report' => $this->include_in_report == 'on' ? true : false,
+        ]);
+    }
+
     public function rules()
     {
         return [
             'name' => [
                 'required',
             ],
+            'include_in_report' => 'boolean'
         ];
     }
 }
